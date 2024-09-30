@@ -23,8 +23,7 @@ public class OssOnCollectionPageTest extends BaseTest {
     @Test
     @Description("Test Case Description : Verify that Studio Collection Pages contains any 'Out of Stock' product ")
     public void testOSS() {
-        String[] Links = collectionPage.getStudioCollectionPages();
-        for (String link : Links) {
+        for (String link : collectionPage.getStudioCollectionPages()) {
             driver.get(link);
             collectionPage.scrollToProductContainer();
             softAssert.assertFalse(collectionPage.isProductOutOfStock(),"Product is Out of Stock"+link);
@@ -32,3 +31,5 @@ public class OssOnCollectionPageTest extends BaseTest {
         softAssert.assertAll();
     }
 }
+
+

@@ -12,7 +12,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class CollectionPage {
     WebDriver driver;
@@ -35,14 +38,19 @@ public class CollectionPage {
 
 
     @Step("Listing collection pages for test coverage")
-    public String[] getStudioCollectionPages() {
-        return Utils.getLinksFromWebElements(CollectionPageLinks);
+    public Set<String> getStudioCollectionPages() {
+        Set<String> uniqueLinks = new HashSet<>();  // Use HashSet to ensure unique links
+        for (WebElement e : CollectionPageLinks) {
+            String link = e.getAttribute("href");
+            uniqueLinks.add(link);  // HashSet automatically handles duplicates
+        }
+        // Convert the Set to an array
+        return uniqueLinks;
     }
 
     @Step("Scroll to the Product Container")
     public void scrollToProductContainer() {
         actions.scrollToElement(ProductContainer).keyDown(Keys.PAGE_DOWN).keyUp(Keys.PAGE_DOWN).build().perform();
-
     }
 
     @Step("Verify for 'Out of Stock' tag ")
